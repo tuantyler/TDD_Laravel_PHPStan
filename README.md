@@ -41,7 +41,8 @@ sẵn plugin để viết unit test, plugin này có tên là ***phpunit***
 
 TDD trong
 Laravel
-adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled.png](./images/media/image2.png)
+adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled.png](./images/media/image2.png){width="6.736758530183727in"
+height="3.6956528871391074in"}
 
 **Cách sử dụng phpunit để chạy unit test ( trên nền CLI )**
 
@@ -51,7 +52,8 @@ Ta được kết quả như sau:
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-1.png](./images/media/image3.png)
+1.png](./images/media/image3.png){width="6.721738845144357in"
+height="2.015498687664042in"}
 
 Sở dĩ có 2 tests ở đây là vì trong template của laravel có sẵn 2 file
 test làm ví dụ, 2 file này nằm lần lượt ở
@@ -95,7 +97,8 @@ Ta có***: test_app_homepage_accessible_in_todoapp_route***
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-2.png](./images/media/image4.png)
+2.png](./images/media/image4.png){width="6.765548993875766in"
+height="3.3613123359580053in"}
 
 2.  **Dùng test annotation**
 
@@ -105,7 +108,8 @@ Với test annotation thì hàm test của mình sẽ không cần tiền tố
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-3.png](./images/media/image5.png)
+3.png](./images/media/image5.png){width="6.75676290463692in"
+height="3.653834208223972in"}
 
 **Bắt buộc phải dùng 1 trong 2 cách trên , nếu không phpunit sẽ báo *No
 tests found ***
@@ -114,7 +118,8 @@ Ta chạy test unit vừa mới viết trên
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-4.png](./images/media/image6.png)
+4.png](./images/media/image6.png){width="6.765459317585302in"
+height="3.2906977252843395in"}
 
 Test case ở trên kiểm tra xem route ***todoapp*** có truy cập được không
 , nếu truy cập được thì có http status trả về là 200
@@ -132,14 +137,16 @@ viết
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-5.png](./images/media/image7.png)
+5.png](./images/media/image7.png){width="4.034722222222222in"
+height="0.8263888888888888in"}
 
 Chạy lại test case, ta thấy test case đã passed, hoàn thành được mục
 tiêu test first (**Test Driven Development - TDD**)
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-6.png](./images/media/image8.png)
+6.png](./images/media/image8.png){width="6.675306211723535in"
+height="1.5260640857392826in"}
 
 **TDD có một mô hình test 3 pha (3-phase pattern) gồm:**
 
@@ -163,13 +170,15 @@ Ta seed dữ liệu giả vào bằng Factory
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-7.png](./images/media/image9.png)
+7.png](./images/media/image9.png){width="6.826388888888889in"
+height="4.852083333333334in"}
 
 ***Ta chạy lại test case***
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-8.png](./images/media/image10.png)
+8.png](./images/media/image10.png){width="6.999698162729659in"
+height="2.085041557305337in"}
 
 ***Test case failed vì model Todo không tồn tại, ta tiến hành tạo model
 Todo bằng lệnh***
@@ -180,7 +189,8 @@ Todo bằng lệnh***
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-9.png](./images/media/image11.png)
+9.png](./images/media/image11.png){width="6.84375in"
+height="0.6784722222222223in"}
 
 ***[Test case failed vì TodoFactory không tồn tại]{.underline}***
 
@@ -190,7 +200,8 @@ Lại tiếp tục debug bằng cách tạo class Factory mới bằng lệnh
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-10.png](./images/media/image12.png)
+10.png](./images/media/image12.png){width="7.105685695538058in"
+height="0.6185411198600175in"}
 
 ***[Test case failed vì database không tồn tại]{.underline}***
 
@@ -199,11 +210,13 @@ database nào bạn có
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-11.png](./images/media/image13.png)
+11.png](./images/media/image13.png){width="4.738888888888889in"
+height="2.009027777777778in"}
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-12.png](./images/media/image14.png)
+12.png](./images/media/image14.png){width="7.090102799650044in"
+height="0.4in"}
 
 ***[Test case failed vì database không có table cần
 thiết]{.underline}***
@@ -217,7 +230,8 @@ thêm các trường cần thiết cho table
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-13.png](./images/media/image15.png)
+13.png](./images/media/image15.png){width="6.782638888888889in"
+height="2.4090277777777778in"}
 
 **Ta tiến hành Migrate database**
 
@@ -227,7 +241,8 @@ Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-14.png](./images/media/image16.png)
+14.png](./images/media/image16.png){width="6.96213145231846in"
+height="0.41762904636920384in"}
 
 Test case failed vì factory không có structure cụ thể để seed dummy data
 vào database
@@ -238,7 +253,8 @@ Vào file : ***database\\factories\\TodoFactory.php***
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-15.png](./images/media/image17.png)
+15.png](./images/media/image17.png){width="5.747916666666667in"
+height="3.782638888888889in"}
 
 ***Test case passed***
 
@@ -247,7 +263,8 @@ Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
 16.png](./images/media/image18.png){width="6.286836176727909in"
 height="1.8768536745406823in"}TDD
 trong Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-17.png](./images/media/image19.png)
+17.png](./images/media/image19.png){width="5.573611111111111in"
+height="1.582638888888889in"}
 
 ***Database đã được seed dummy data , hoàn thành Arrange parse***
 
@@ -255,34 +272,39 @@ trong Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-18.png](./images/media/image20.png)
+18.png](./images/media/image20.png){width="6.76551946631671in"
+height="3.467929790026247in"}
 
 3.  **Assertion** ⇒ Kiểm tra xem các todo trong database đã được pass
     trong view hay chưa
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-19.png](./images/media/image21.png)
+19.png](./images/media/image21.png){width="6.800275590551181in"
+height="3.24338801399825in"}
 
 ***[Test case thông báo failed , không tìm thấy object được pass trong
 view]{.underline}***
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-20.png](./images/media/image22.png)
+20.png](./images/media/image22.png){width="6.774063867016623in"
+height="2.2597265966754154in"}
 
 ***[Tiến hành debug web.php , pass object todos sang
 views]{.underline}***
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-21.png](./images/media/image23.png)
+21.png](./images/media/image23.png){width="5.24375in"
+height="1.1652777777777779in"}
 
 ***[Chạy lại test case , ta thấy test case đã passed]{.underline}***
 
 TDD trong
 Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-22.png](./images/media/image24.png)
+22.png](./images/media/image24.png){width="6.83463145231846in"
+height="1.8148829833770779in"}
 
 **Tiến tục áp dụng TDD cho tất cả các functions và requirements còn
 lại**
