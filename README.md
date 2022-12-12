@@ -4,6 +4,46 @@ PHPStan là một công cụ phân tích giúp kiểm tra lỗi mà không cần
 test , mang lại tính năng khiến cho PHP trở thành một complied language
 như Java hay C# hoặc tương tự như TypeScript, bắt lỗi trước runtime.
 
+Config phpstan cho PHPStorm
+
+Thêm phpstan vào composer.json , bấm install
+
+![](./myMediaFolder/media/image1.png){width="6.5in"
+height="1.5451388888888888in"}
+
+Ctrl+Alt+S để mở settings
+
+![](./myMediaFolder/media/image2.png){width="3.8338681102362204in"
+height="2.5836942257217848in"}
+
+Mở đến Quality Tool
+
+Chọn tab PHPStan , bấm vào toggle button cho trở thành ON , ở đây ta có
+thể config level , set file config , \...
+
+![](./myMediaFolder/media/image3.png){width="6.5in"
+height="4.808333333333334in"}
+
+Để chạy thì ta bấm vào code -\> inspect code
+
+![](./myMediaFolder/media/image4.png){width="6.188363954505687in"
+height="3.5213243657042868in"}
+
+Chọn file , hay folder cần check
+
+![](./myMediaFolder/media/image5.png){width="5.917492344706911in"
+height="3.5734153543307086in"}
+
+Bấm analyze
+
+Ta có
+
+![](./myMediaFolder/media/image6.png){width="6.5in"
+height="2.2597222222222224in"}
+
+![](./myMediaFolder/media/image7.png){width="6.5in"
+height="2.0208333333333335in"}
+
 PHPStan cho 10 mức độ (level) để check , analysis code, bao gồm:
 
 Level 1: Kiểm tra classes , functions, các method được gọi có tồn tại
@@ -48,36 +88,36 @@ thêm những thư mục chứa code cần check.
 Ta includes config của larastan , để tránh báo lỗi khi dùng eloquent của
 laravel
 
-![](./myMediaFolder/media/image1.png){width="6.344635826771653in"
+![](./myMediaFolder/media/image8.png){width="6.344635826771653in"
 height="2.4065857392825896in"}
 
 Tạo một file test mới
 
-![](./myMediaFolder/media/image2.png){width="3.4588156167979003in"
+![](./myMediaFolder/media/image9.png){width="3.4588156167979003in"
 height="0.5000699912510936in"}
 
 Chạy test của phpstan
 
-![](./myMediaFolder/media/image3.png){width="6.5in" height="1.60625in"}
+![](./myMediaFolder/media/image10.png){width="6.5in" height="1.60625in"}
 
 Ta tiến hành viết test theo hướng TDD như thông thường
 
 tests\\Feature\\TodoTest.php
 
-![](./myMediaFolder/media/image4.png){width="6.5in"
+![](./myMediaFolder/media/image11.png){width="6.5in"
 height="4.661111111111111in"}
 
-![](./myMediaFolder/media/image5.png){width="6.5in"
+![](./myMediaFolder/media/image12.png){width="6.5in"
 height="3.8666666666666667in"}
 
 PHPStan báo lỗi không có model, ta tiến hành tạo model mới
 
-![](./myMediaFolder/media/image6.png){width="6.5in"
+![](./myMediaFolder/media/image13.png){width="6.5in"
 height="0.8534722222222222in"}
 
 Chạy lại phpstan
 
-![](./myMediaFolder/media/image7.png){width="6.5in"
+![](./myMediaFolder/media/image14.png){width="6.5in"
 height="1.4840277777777777in"}
 
 Giờ làm tương tự để build môi trường như trong TDD, để cho tiện thì mình
@@ -92,11 +132,11 @@ thì ta có thể nâng level của phpstan / larastan lên
 
 Ví dụ như level 9
 
-![](./myMediaFolder/media/image8.png){width="6.5in"
+![](./myMediaFolder/media/image15.png){width="6.5in"
 height="3.592361111111111in"}
 
 Và ta resolve theo lỗi được báo , ví dụ như defind kiểu trả về cho
 controller và function
 
-![](./myMediaFolder/media/image9.png){width="5.532022090988627in"
+![](./myMediaFolder/media/image16.png){width="5.532022090988627in"
 height="1.989861111111111in"}
