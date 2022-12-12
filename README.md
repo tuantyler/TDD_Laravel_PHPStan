@@ -1,385 +1,102 @@
-**TDD trong Laravel**
+Viết test TDD trong Laravel sử dụng PHPStan + PHPUnit
 
-**Test Driven Development (TDD)** là một phương pháp phát triển phần
-mềm, thay vì viết code sau đó viết test case để kiểm thử **(Test Last
-Development)** . Ta làm theo hướng ngược lại, viết các test case để kiểm
-thử trước , sau đó viết code để thỏa mãn các test case đó. **(Test First
-Development)**
+PHPStan là một công cụ phân tích giúp kiểm tra lỗi mà không cần viết
+test , mang lại tính năng khiến cho PHP trở thành một complied language
+như Java hay C# hoặc tương tự như TypeScript, bắt lỗi trước runtime.
 
-I.  **Cách thực hiện TDD**
+PHPStan cho 10 mức độ (level) để check , analysis code, bao gồm:
 
-```{=html}
-<!-- -->
-```
-1.  **Viết một test case ( màu đỏ )**
+Level 1: Kiểm tra classes , functions, các method được gọi có tồn tại
+hay không, số lượng tham số (parameters) chuyền vào có đúng không, kiểm
+tra biến (variable) có được defind hay chưa
 
-*Viết code cần và (vừa)đủ để làm sao pass được test case vừa viết*
+Level 2: Các biến, methods được gọi có thể chưa được defind lúc runtime
 
-*Nghĩ về một tính năng và viết test case cho nó, vì tính năng này chưa
-được implement, test case này chắc chắn sẽ fail*
+Level 3: Check tất cả các methods, kể cả những methods không được gọi
 
-2.  **Sửa code cho test pass ( màu xanh )**
+Level 4: Bắt buộc phải định nghĩa kiểu dữ liệu trả về cho hàm
 
-*Viết code cần và (vừa)đủ để làm sao pass được test case vừa viết*
+Level 5: Kiểm tra dead code ( code không được sử dụng đến )
 
-3.  **Loại bỏ code dư thừa, cải thiện code (Refactor)**
+Level 6: Kiểm tra kiểu dữ liệu của parameters được truyền vào
 
-*Vì ở bước 2 ta chỉ viết cho (vừa)đủ để pass test case , sau khi
-implement đầy đủ các tính năng thì giờ đã đến lúc để nghĩ đến việc
-refactoring code làm sao cho dễ đọc, dễ hiểu hoặc làm sao cho nó có hiệu
-năng tốt hơn*
+Level 7: Báo cáo lỗi đánh máy
 
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel
-adbeef81a4bf4a308b0e4cfd8c1b2850\\1.png](./images/media/image1.png){width="6.730435258092738in"
-height="3.59584208223972in"}
+Level 8: Báo lỗi nếu gọi methods có khả năng không tồn tại.
 
-***Thực hiện quy trình trên cho đến khi implement và pass được tất cả
-các requirements được đặt ra ⇒ Code được 100% test coverage***
+Level 9: Không cho phép gọi hàm và methods trên undefinded object
 
-**Xây dựng một website Todolist Laravel đơn giản áp dụng TDD**
+Level 10: Giới hạn mixed type trong php, chỉ có thể gán mixed type vào
+một variable mixed type khác.
 
-**Ở đây ta sẽ xây dựng một app Todolist đơn giản áp dụng quy trình TDD**
+Cài đặt phpstan, đối với laravel thì ta sẽ sử dụng thư viện larastan
+thay cho phpstan thông thường.
 
-Đối với một project laravel mới được tạo, laravel đã được mặc định kèm
-sẵn plugin để viết unit test, plugin này có tên là ***phpunit***
+Đối với laravel 9.0+
 
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel
-adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled.png](./images/media/image2.png){width="6.736758530183727in"
-height="3.6956528871391074in"}
+composer require nunomaduro/larastan:\^2.0 --dev
 
-**Cách sử dụng phpunit để chạy unit test ( trên nền CLI )**
+Đối với laravel cũ hơn
 
-Ta sử dụng lệnh: ***vendor/bin/phpunit***
+composer require nunomaduro/larastan:\^1.0 --dev
 
-Ta được kết quả như sau:
+Ta tạo file phpstan.neon ở thư mục root
 
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-1.png](./images/media/image3.png){width="6.721738845144357in"
-height="2.015498687664042in"}
+Dựa theo mức độ level ở trên ta chỉ cần dùng đến level 5, phần paths ta
+thêm những thư mục chứa code cần check.
 
-Sở dĩ có 2 tests ở đây là vì trong template của laravel có sẵn 2 file
-test làm ví dụ, 2 file này nằm lần lượt ở
+Ta includes config của larastan , để tránh báo lỗi khi dùng eloquent của
+laravel
 
-***tests\\Unit\\ExampleTest.php***
+![](./myMediaFolder/media/image1.png){width="6.344635826771653in"
+height="2.4065857392825896in"}
 
-***tests\\Feature\\ExampleTest.php***
+Tạo một file test mới
 
-**Xóa cả hai file này bởi vì chúng ta không cần đến chúng**
+![](./myMediaFolder/media/image2.png){width="3.4588156167979003in"
+height="0.5000699912510936in"}
 
-Để chạy một test unit cụ thể , ta sử dụng thêm thuộc tính
-***---fliter*** kèm với ***class name*** hoặc ***method name***, ví dụ:
+Chạy test của phpstan
 
-***vendor/bin/phpunit \--filter ExampleTest***
+![](./myMediaFolder/media/image3.png){width="6.5in" height="1.60625in"}
 
-***vendor/bin/phpunit \--filter test_example***
+Ta tiến hành viết test theo hướng TDD như thông thường
 
-Ở đây ta sẽ dùng laravel viết một ứng dụng Todolist đơn giản (thêm, xóa
-đã làm, set đã làm) nhưng theo hướng TDD
+tests\\Feature\\TodoTest.php
 
-Tạo một file Unit Test mới bằng lệnh : **php artisan make:test
-TodoTest**
+![](./myMediaFolder/media/image4.png){width="6.5in"
+height="4.661111111111111in"}
 
-Giờ ta có file ***tests\\Feature\\TodoTest.php***
+![](./myMediaFolder/media/image5.png){width="6.5in"
+height="3.8666666666666667in"}
 
-Giả sử requirement yêu cầu homepage của app todo của chúng ta nằm ở
-route ***todoapp*** , hay ***http://127.0.0.1:8000/todoapp***
+PHPStan báo lỗi không có model, ta tiến hành tạo model mới
 
-Thay vì lao đầu vào viết code tạo route luôn thì thay vào đó ta sẽ viết
-test case trước
+![](./myMediaFolder/media/image6.png){width="6.5in"
+height="0.8534722222222222in"}
 
-**Có 2 cách để viết function test**
+Chạy lại phpstan
 
-1.  **Thêm tiền tố test\_ vào trước tên hàm**
+![](./myMediaFolder/media/image7.png){width="6.5in"
+height="1.4840277777777777in"}
 
-Ví dụ hàm test của mình đặt tên là
-***app_homepage_accessible_in_todoapp_route*** thì phải thêm tiền tố
-***test\_*** vào phía trước
+Giờ làm tương tự để build môi trường như trong TDD, để cho tiện thì mình
+có thể dùng [tuantyler/tdd-todolist-laravel
+(github.com)](https://github.com/tuantyler/tdd-todolist-laravel)
 
-Ta có***: test_app_homepage_accessible_in_todoapp_route***
+Làm project để bắt đầu, config giống như trên, develop tương tự như TDD
+thông thường
 
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-2.png](./images/media/image4.png){width="6.765548993875766in"
-height="3.3613123359580053in"}
+Tùy vào độ strict cũng như chuẩn convention code cần thiết cho project
+thì ta có thể nâng level của phpstan / larastan lên
 
-2.  **Dùng test annotation**
+Ví dụ như level 9
 
-Với test annotation thì hàm test của mình sẽ không cần tiền tố
-***test\_*** nữa nhưng ta phải để test annotation: ***/\*\* \@test
-\*/*** lên trên đầu hàm
+![](./myMediaFolder/media/image8.png){width="6.5in"
+height="3.592361111111111in"}
 
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-3.png](./images/media/image5.png){width="6.75676290463692in"
-height="3.653834208223972in"}
+Và ta resolve theo lỗi được báo , ví dụ như defind kiểu trả về cho
+controller và function
 
-**Bắt buộc phải dùng 1 trong 2 cách trên , nếu không phpunit sẽ báo *No
-tests found ***
-
-Ta chạy test unit vừa mới viết trên
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-4.png](./images/media/image6.png){width="6.765459317585302in"
-height="3.2906977252843395in"}
-
-Test case ở trên kiểm tra xem route ***todoapp*** có truy cập được không
-, nếu truy cập được thì có http status trả về là 200
-
-Ở đây phpunit báo lỗi test failed , ***[cơ mà đây chính xác những gì ta
-hướng đến khi viết theo phương pháp TDD]{.underline}*** (bước 1 của TDD
-như đã giới thiệu ở trên)
-
-Giờ chúng ta chuyển sang bước 2, viết code để thõa mãn test case ta vừa
-viết
-
-**Tạo file resources\\views\\todoapp.blade.php**
-
-**Thêm route vào routes\\web.php**
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-5.png](./images/media/image7.png){width="4.034722222222222in"
-height="0.8263888888888888in"}
-
-Chạy lại test case, ta thấy test case đã passed, hoàn thành được mục
-tiêu test first (**Test Driven Development - TDD**)
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-6.png](./images/media/image8.png){width="6.675306211723535in"
-height="1.5260640857392826in"}
-
-**TDD có một mô hình test 3 pha (3-phase pattern) gồm:**
-
-**Arrange** ⇒ là function khởi tạo môi trường cần thiết cho quá trình
-test
-
-**Act** ⇒ là khi Arrange đã hoàn thành xong công việc , Act chứa những
-đoạn code để thực hiện bài test
-
-**Assertion** ⇒ là khi Act đã được chạy, Assertion kiểm tra xem Act có
-hoạt động đúng như mong đợi hay không
-
-**Áp dụng mô hình này vào ứng dụng , ta có quy trình sau**
-
-**Arrange** ⇒ seed dữ liệu giả vào database
-
-***[Ta add model của Todo vào trong test class , dù model này chưa được
-khởi tạo]{.underline}***
-
-Ta seed dữ liệu giả vào bằng Factory
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-7.png](./images/media/image9.png){width="6.826388888888889in"
-height="4.852083333333334in"}
-
-***Ta chạy lại test case***
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-8.png](./images/media/image10.png){width="6.999698162729659in"
-height="2.085041557305337in"}
-
-***Test case failed vì model Todo không tồn tại, ta tiến hành tạo model
-Todo bằng lệnh***
-
-***php artisan make:model Todo***
-
-***Ta chạy lại test case***
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-9.png](./images/media/image11.png){width="6.84375in"
-height="0.6784722222222223in"}
-
-***[Test case failed vì TodoFactory không tồn tại]{.underline}***
-
-Lại tiếp tục debug bằng cách tạo class Factory mới bằng lệnh
-
-***php artisan make:factory TodoFactory***
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-10.png](./images/media/image12.png){width="7.105685695538058in"
-height="0.6185411198600175in"}
-
-***[Test case failed vì database không tồn tại]{.underline}***
-
-Tạo database bằng phpmyadmin, navicat, hoặc bất cứ trình quản lý
-database nào bạn có
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-11.png](./images/media/image13.png){width="4.738888888888889in"
-height="2.009027777777778in"}
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-12.png](./images/media/image14.png){width="7.090102799650044in"
-height="0.4in"}
-
-***[Test case failed vì database không có table cần
-thiết]{.underline}***
-
-**Tạo table bằng laravel migration**
-
-***php artisan make:migration create_todos_table***
-
-Trong ***database\\migrations\\{date-time}\_create_todos_table.php***
-thêm các trường cần thiết cho table
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-13.png](./images/media/image15.png){width="6.782638888888889in"
-height="2.4090277777777778in"}
-
-**Ta tiến hành Migrate database**
-
-***php artisan migrate***
-
-***Lại chạy lại testcase***
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-14.png](./images/media/image16.png){width="6.96213145231846in"
-height="0.41762904636920384in"}
-
-Test case failed vì factory không có structure cụ thể để seed dummy data
-vào database
-
-Vào file : ***database\\factories\\TodoFactory.php***
-
-**Them structure definition cho TodoFactory**
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-15.png](./images/media/image17.png){width="5.747916666666667in"
-height="3.782638888888889in"}
-
-***Test case passed***
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-16.png](./images/media/image18.png){width="6.286836176727909in"
-height="1.8768536745406823in"}![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD
-trong Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-17.png](./images/media/image19.png){width="5.573611111111111in"
-height="1.582638888888889in"}
-
-***Database đã được seed dummy data , hoàn thành Arrange parse***
-
-2\. **Act** ⇒ redirect về route todoapp
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-18.png](./images/media/image20.png){width="6.76551946631671in"
-height="3.467929790026247in"}
-
-3.  **Assertion** ⇒ Kiểm tra xem các todo trong database đã được pass
-    trong view hay chưa
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-19.png](./images/media/image21.png){width="6.800275590551181in"
-height="3.24338801399825in"}
-
-***[Test case thông báo failed , không tìm thấy object được pass trong
-view]{.underline}***
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-20.png](./images/media/image22.png){width="6.774063867016623in"
-height="2.2597265966754154in"}
-
-***[Tiến hành debug web.php , pass object todos sang
-views]{.underline}***
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-21.png](./images/media/image23.png){width="5.24375in"
-height="1.1652777777777779in"}
-
-***[Chạy lại test case , ta thấy test case đã passed]{.underline}***
-
-![C:\\Users\\Tuan\\AppData\\Local\\Temp\\Rar\$EXa5248.47518\\TDD trong
-Laravel adbeef81a4bf4a308b0e4cfd8c1b2850\\Untitled
-22.png](./images/media/image24.png){width="6.83463145231846in"
-height="1.8148829833770779in"}
-
-**Tiến tục áp dụng TDD cho tất cả các functions và requirements còn
-lại**
-
-**Test-case: Kiểm tra xem có add dữ liệu được vào database không**
-
-![](./images/media/image25.png){width="5.3340780839895015in"
-height="2.87540135608049in"}
-
-***[Lỗi vì route chưa được tạo]{.underline}***
-
-![](./images/media/image26.png){width="6.091646981627297in"
-height="1.4376541994750656in"}
-
-***Tạo route để fix lỗi***
-
-![](./images/media/image27.png){width="6.5in" height="0.3375in"}
-
-![](./images/media/image28.png){width="4.021394356955381in"
-height="1.156411854768154in"}
-
-**Test-case: Kiểm tra xem có thay đổi trạng thái completed của todo
-trong database được không**
-
-![](./images/media/image29.png){width="6.5in"
-height="1.9069444444444446in"}
-
-![](./images/media/image30.png){width="6.5in"
-height="0.24305555555555555in"}
-
-![](./images/media/image31.png){width="6.5in"
-height="1.2319444444444445in"}
-
-**Test-case: Kiểm tra xem có xóa được tất cả những todos đã hoàn thành
-hay không**
-
-![](./images/media/image32.png){width="6.5in" height="3.3in"}
-
-![](./images/media/image33.png){width="6.5in"
-height="0.7256944444444444in"}
-
-![](./images/media/image34.png){width="6.5in"
-height="0.28680555555555554in"}
-
-![](./images/media/image35.png){width="5.063206474190726in"
-height="1.1459930008748906in"}
-
-![](./images/media/image36.png){width="3.7296872265966754in"
-height="0.9063768591426071in"}
-
-**Merge route, controller đã build theo TDD vào UI**
-
-![](./images/media/image37.png){width="6.5in"
-height="3.421527777777778in"}
-
-![](./images/media/image38.png){width="6.5in"
-height="1.9666666666666666in"}
-
-**Kết quả: App TodoList được xây dựng theo phương pháp TDD**
-
-![](./images/media/image39.png){width="2.748999343832021in"
-height="4.564058398950131in"}
-
-**Reactor Code**
-
-Ta tìm các cách để rút gọn + cải thiện code ***, ví dụ như*** nhét web
-route vào controller riêng, \...
-
-![](./images/media/image40.png){width="5.875820209973753in"
-height="3.17752624671916in"}
-
-![](./images/media/image41.png){width="5.240314960629921in"
-height="0.44797900262467194in"}
+![](./myMediaFolder/media/image9.png){width="5.532022090988627in"
+height="1.989861111111111in"}

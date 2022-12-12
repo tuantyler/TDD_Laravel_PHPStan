@@ -1,0 +1,12 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    ignoreErrors:
+        - message: '#PHPDoc tag @var#'
+
+    paths:
+        - app
+        - tests
+    level: 9
+
